@@ -32,7 +32,7 @@ class UserController extends BaseController
 
         $isLoggedIn = $this->attendanceModel
             ->where(['user_id' => $id])
-            ->where('DATE(created_at)', date('Y-m-d'))
+            ->where('DATE(signin_at)', date('Y-m-d'))
             ->first();
 
         $data = [
