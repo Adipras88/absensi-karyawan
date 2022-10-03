@@ -21,15 +21,15 @@ class AttendanceModel extends Model
         "description",
         "user_proof_file",
         "status",
-        "created_at",
-        "updated_at",
+        "signin_at",
+        "signout_at",
     ];
 
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    protected $createdField  = 'signin_at';
+    protected $updatedField  = 'signout_at';
     protected $deletedField  = 'deleted_at';
 
     // Validation

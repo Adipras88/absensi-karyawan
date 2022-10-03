@@ -29,7 +29,7 @@ class AttendanceController extends BaseController
             ->join('users', 'users.userId = attendances.user_id', 'left')
             ->findAll();
 
-        $entry_absent = $attedance ? date_format(date_create($attedance[0]['created_at']), 'Hi') : null;
+        $entry_absent = $attedance ? date_format(date_create($attedance[0]['signin_at']), 'Hi') : null;
         $late = (int)$entry_absent <= 8000;
 
         $data = [
@@ -53,7 +53,7 @@ class AttendanceController extends BaseController
 
     public function permission()
     {
-        $user = $this->attendanceModel->where(['DATE(created_at)' => $this->today, 'user_id' => session()->get('id')])->first();
+        $user = $this->attendanceModel->where(['DATE(signin_at)' => $this->today, 'user_id' => session()->get('id')])->first();
 
         $data = [
             'validation' => Services::validation(),
@@ -85,7 +85,7 @@ class AttendanceController extends BaseController
                 'user_proof_file' => $fileName,
                 'is_logged_in' => TRUE,
                 'status' => 'PENDING',
-                'created_at' => date('Y-m-d H:i:s')
+                'signin_at' => date('Y-m-d H:i:s')
             ];
 
             $this->attendanceModel->save($data);
@@ -118,7 +118,7 @@ class AttendanceController extends BaseController
             'user_id' => session()->get('id'),
             'is_logged_in' => TRUE,
             'category' => 'hadir',
-            'created_at' => date('Y-m-d H:i:s')
+            'signin_at' => date('Y-m-d H:i:s')
         ];
 
         $this->attendanceModel->save($data);
@@ -139,8 +139,7 @@ class AttendanceController extends BaseController
             'user_proof_file' => $currentData['user_proof_file'],
             'is_logged_in' => TRUE,
             'status' => $status === 'approved' ? 'APPROVED' : 'REJECTED',
-            'created_at' => $currentData['created_at'],
-            'updated_at' => date('Y-m-d H:i:s')
+            'signin_at' => $currentData['signin_at'],
         ];
 
         $this->attendanceModel->replace($data);

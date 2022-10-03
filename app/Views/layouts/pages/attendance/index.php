@@ -71,12 +71,16 @@
                                 <!--END FILE-->
 
                                 <!--START SIGN IN-->
-                                <td><?= date_format(date_create($e['created_at']), 'd M Y H:i') ?></td>
+                                <?php if ($e['signin_at'] && $e['category'] === 'hadir') : ?>
+                                    <td><?= date_format(date_create($e['signin_at']), 'd M Y H:i') ?></td>
+                                <?php else : ?>
+                                    <td>-</td>
+                                <?php endif; ?>
                                 <!--END SIGN IN-->
 
                                 <!--START SIGN OUT-->
-                                <?php if ($e['updated_at']) : ?>
-                                    <td><?= date_format(date_create($e['updated_at']), 'd M Y H:i') ?></td>
+                                <?php if ($e['signout_at'] && $e['category'] === 'hadir') : ?>
+                                    <td><?= date_format(date_create($e['signout_at']), 'd M Y H:i') ?></td>
                                 <?php else : ?>
                                     <td>-</td>
                                 <?php endif; ?>
@@ -84,7 +88,7 @@
 
                                 <!--START LATE TIME-->
                                 <?php if ($late === true && $e['category'] === 'hadir') : ?>
-                                    <td><?= date_format(date_create($e['created_at']), 'H:i') ?></td>
+                                    <td><?= date_format(date_create($e['signin_at']), 'H:i') ?></td>
                                 <?php else : ?>
                                     <td>-</td>
                                 <?php endif; ?>
@@ -109,9 +113,9 @@
                                 <!--START ACTION-->
                                 <?php if ($e['status'] === 'PENDING') : ?>
                                     <td>
-                                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        <button class="btn btn-info btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#approveModal<?= $e['attendanceId'] ?>">
-                                            <i class="bi bi-aye-fill">Detail</i>
+                                            <i class="bi bi-eye-fill"></i>
                                         </button>
                                     </td>
                                 <?php else : ?>
