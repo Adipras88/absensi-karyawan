@@ -85,7 +85,8 @@ class AttendanceController extends BaseController
                 'user_proof_file' => $fileName,
                 'is_logged_in' => TRUE,
                 'status' => 'PENDING',
-                'signin_at' => date('Y-m-d H:i:s')
+                'signin_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
             ];
 
             $this->attendanceModel->save($data);
@@ -118,7 +119,8 @@ class AttendanceController extends BaseController
             'user_id' => session()->get('id'),
             'is_logged_in' => TRUE,
             'category' => 'hadir',
-            'signin_at' => date('Y-m-d H:i:s')
+            'signin_at' => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->attendanceModel->save($data);
@@ -133,13 +135,15 @@ class AttendanceController extends BaseController
 
         $data = [
             'attendanceId' => $id,
-            'user_id' => session()->get('id'),
+            'user_id' => $currentData['user_id'],
             'category' => $currentData['category'],
             'description' => $currentData['description'],
             'user_proof_file' => $currentData['user_proof_file'],
             'is_logged_in' => TRUE,
             'status' => $status === 'approved' ? 'APPROVED' : 'REJECTED',
             'signin_at' => $currentData['signin_at'],
+            'created_at' => $currentData['created_at'],
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->attendanceModel->replace($data);

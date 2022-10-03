@@ -23,13 +23,15 @@ class AttendanceModel extends Model
         "status",
         "signin_at",
         "signout_at",
+        "created_at",
+        "updated_at"
     ];
 
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'signin_at';
-    protected $updatedField  = 'signout_at';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
     // Validation
