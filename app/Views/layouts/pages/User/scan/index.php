@@ -51,7 +51,7 @@
         //regular expressions to extract IP and country values
         constcountryCodeExpression = /loc=([\w]{2})/;
         constuserIPExpression = /ip=([\w\.]+)/;
-        letIP = '';
+        let IP = '';
 
         //automatic country determination.
         function initCountry() {
