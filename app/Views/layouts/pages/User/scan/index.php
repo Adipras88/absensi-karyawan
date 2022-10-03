@@ -49,8 +49,8 @@
 
     <script type="text/javascript">
         //regular expressions to extract IP and country values
-        constcountryCodeExpression = /loc=([\w]{2})/;
-        constuserIPExpression = /ip=([\w\.]+)/;
+        const countryCodeExpression = /loc=([\w]{2})/;
+        const userIPExpression = /ip=([\w\.]+)/;
         let IP = '';
 
         //automatic country determination.
@@ -90,7 +90,7 @@
         initCountry().then(result => console.log(JSON.stringify(result))).catch(e => console.log(e))
 
 
-        letscanner = new Instascan.Scanner({
+        let scanner = new Instascan.Scanner({
             video: document.getElementById('preview'),
             mirror: false,
             captureImage: true,
