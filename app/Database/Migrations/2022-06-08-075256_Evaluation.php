@@ -22,12 +22,6 @@ class Evaluation extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'job_id' => [
-                'type' => 'INT',
-                'constraint' => 10,
-                'unsigned' => true,
-                'null' => true,
-            ],
             'user_id' => [
                 'type' => 'INT',
                 'constraint' => 12,
@@ -50,11 +44,6 @@ class Evaluation extends Migration
                 'null' => true,
             ],
             'perilaku' => [
-                'type' => 'INT',
-                'constraint' => 10,
-                'null' => true,
-            ],
-            'value_job_type' => [
                 'type' => 'INT',
                 'constraint' => 10,
                 'null' => true,
@@ -108,7 +97,6 @@ class Evaluation extends Migration
 
         // Relations
         $this->forge->addForeignKey('user_id', 'users', 'userId');
-        $this->forge->addForeignKey('job_id', 'jobs', 'jobId');
 
         // Create Table Categories
         $this->forge->createTable('evaluations');

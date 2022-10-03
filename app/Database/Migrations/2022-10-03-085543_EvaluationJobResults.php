@@ -4,52 +4,34 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Attendance extends Migration
+class EvaluationJobResults extends Migration
 {
     public function up()
     {
         $this->db->disableForeignKeyChecks();
         $this->forge->addField([
-            'attendanceId' => [
+            'jobResultsId' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'user_id' => [
+            'evaluation_id' => [
                 'type' => 'INT',
                 'constraint' => 12,
                 'unsigned' => true,
                 'null' => true,
             ],
-
-            'is_logged_in' => [
-                'type' => 'BOOLEAN',
-                'default' => false
-            ],
-            'category' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
+            'job_id' => [
+                'type' => 'INT',
+                'constraint' => 12,
+                'unsigned' => true,
                 'null' => true,
             ],
-            'description' => [
-                'type' => 'TEXT',
-                'null' => true
-            ],
-            'user_proof_file' => [
-                'type' => 'TEXT',
-                'null' => true
-            ],
-            'status' => [
-                'type' => 'TEXT',
-                'null' => true
-            ],
-            'signin_at' => [
-                'type' => 'DATETIME',
-                'null' => true,
-            ],
-            'signout_at' => [
-                'type' => 'DATETIME',
+            'job_score' => [
+                'type' => 'INT',
+                'constraint' => 12,
+                'unsigned' => true,
                 'null' => true,
             ],
             'created_at' => [
@@ -67,13 +49,14 @@ class Attendance extends Migration
         ]);
 
         // Primary Key Table ID
-        $this->forge->addKey('attendanceId', true);
+        $this->forge->addKey('jobResultsId', true);
 
         // Added Relation
-        $this->forge->addForeignKey('user_id', 'users', 'userId');
+        $this->forge->addForeignKey('evaluation_id', 'evaluations', 'evaluationId');
+        $this->forge->addForeignKey('job_id', 'jobs', 'jobId');
 
         // Create Table Attendance
-        $this->forge->createTable('attendances');
+        $this->forge->createTable('evaluation_job_results');
         $this->db->enableForeignKeyChecks();
     }
 
@@ -81,6 +64,6 @@ class Attendance extends Migration
     {
         // Drop Table Attendance
         $forge = \Config\Database::forge();
-        $this->forge->dropTable('attendances');
+        $this->forge->dropTable('evaluation_job_results');
     }
 }

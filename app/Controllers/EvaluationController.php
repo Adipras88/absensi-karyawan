@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\EvaluationJobResultsModel;
 use App\Models\EvaluationModel;
 use App\Models\JobModel;
 use App\Models\UserModel;
@@ -10,13 +11,14 @@ use Config\Services;
 
 class EvaluationController extends BaseController
 {
-    protected $evaluationModel, $userModel, $jobModel;
+    protected $evaluationModel, $userModel, $jobModel, $evaluationJobResultsModel;
 
     public function __construct()
     {
         $this->evaluationModel = new EvaluationModel();
         $this->userModel = new UserModel();
         $this->jobModel = new JobModel();
+        $this->evaluationJobResultsModel = new EvaluationJobResultsModel();
         helper(['form']);
 
         if (session()->get('level') != "admin") {
@@ -58,21 +60,19 @@ class EvaluationController extends BaseController
             'user_id' => 'required',
             'job_id' => 'required',
             'disiplin' => 'required',
-            'loyalitas'   => 'required',
-            'kerjasama'   => 'required',
-            'perilaku'   => 'required',
+            'loyalitas' => 'required',
+            'kerjasama' => 'required',
+            'perilaku' => 'required',
             'value_job_type' => 'required',
         ];
 
         if ($this->validate($rules)) {
             $data = [
                 'user_id' => $this->request->getVar('user_id'),
-                'job_id' => $this->request->getVar('job_id'),
                 'disiplin' => $this->request->getVar('disiplin'),
                 'loyalitas' => $this->request->getVar('loyalitas'),
                 'kerjasama' => $this->request->getVar('kerjasama'),
                 'perilaku' => $this->request->getVar('perilaku'),
-                'value_job_type' => $this->request->getVar('value_job_type'),
                 'total_sikap' => $this->request->getVar('total_sikap'),
                 'total_percentage_sikap' => $this->request->getVar('total_percentage_sikap'),
                 'total_working_result' => $this->request->getVar('total_working_result'),
@@ -81,8 +81,20 @@ class EvaluationController extends BaseController
                 'predikat' => $this->request->getVar('predikat'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
-
             $this->evaluationModel->save($data);
+
+            $dataEvaluation = $this->evaluationModel->where(['created_at' => date('Y-m-d H:i:s')])->first();
+//            dd($dataEvaluation);
+            $result = array();
+            foreach ($_POST['job_id'] as $key => $val) {
+                $result[] = array(
+                    'evaluation_id' => $dataEvaluation['evaluationId'],
+                    'job_id' => $_POST['job_id'][$key],
+                    'job_score' => $_POST['value_job_type'][$key],
+                    'created_at' => date('Y-m-d H:i:s')
+                );
+            }
+            $this->evaluationJobResultsModel->insertBatch($result);
             session()->setFlashdata('success_evaluation', 'Create Evaluation successfully.');
             return redirect()->to("/admin/evaluation");
         } else {
@@ -113,9 +125,9 @@ class EvaluationController extends BaseController
             'user_id' => 'required',
             'job_id' => 'required',
             'disiplin' => 'required',
-            'loyalitas'   => 'required',
-            'kerjasama'   => 'required',
-            'perilaku'   => 'required',
+            'loyalitas' => 'required',
+            'kerjasama' => 'required',
+            'perilaku' => 'required',
             'value_job_type' => 'required',
         ];
 

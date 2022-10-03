@@ -56,45 +56,56 @@
                                         <div class="mt-3 row">
                                             <label for="disiplin" class="col-sm-4 col-form-label">Disiplin</label>
                                             <div class="col-sm-6">
-                                                <input name="disiplin" type="number" min="0" max="100" class="form-control"
+                                                <input name="disiplin" type="number" min="0" max="100"
+                                                       class="form-control"
                                                        id="disiplin">
-                                                <div class="disiplin-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                                <div class="disiplin-invalid-feedback"
+                                                     style="color: #dc3545; font-size: 12px"></div>
                                             </div>
                                         </div>
                                         <div class="mt-3 row">
                                             <label for="loyalitas" class="col-sm-4 col-form-label">Loyalitas</label>
                                             <div class="col-sm-6">
-                                                <input name="loyalitas" type="number" min="0" max="100" class="form-control"
+                                                <input name="loyalitas" type="number" min="0" max="100"
+                                                       class="form-control"
                                                        id="loyalitas">
-                                                <div class="loyalitas-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                                <div class="loyalitas-invalid-feedback"
+                                                     style="color: #dc3545; font-size: 12px"></div>
                                             </div>
                                         </div>
                                         <div class="mt-3 row">
                                             <label for="kerjasama" class="col-sm-4 col-form-label">Kerja Sama</label>
                                             <div class="col-sm-6">
-                                                <input name="kerjasama" type="number" min="0" max="100" class="form-control"
+                                                <input name="kerjasama" type="number" min="0" max="100"
+                                                       class="form-control"
                                                        id="kerjasama">
-                                                <div class="kerjasama-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                                <div class="kerjasama-invalid-feedback"
+                                                     style="color: #dc3545; font-size: 12px"></div>
                                             </div>
                                         </div>
                                         <div class="mt-3 row">
                                             <label for="perilaku" class="col-sm-4 col-form-label">Perilaku</label>
                                             <div class="col-sm-6">
-                                                <input name="perilaku" type="number" min="0" max="100" class="form-control"
+                                                <input name="perilaku" type="number" min="0" max="100"
+                                                       class="form-control"
                                                        id="perilaku">
-                                                <div class="perilaku-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                                <div class="perilaku-invalid-feedback"
+                                                     style="color: #dc3545; font-size: 12px"></div>
                                             </div>
                                         </div>
                                         <div class="mt-5 row">
                                             <label for="total" class="col-sm-4 col-form-label">Total</label>
                                             <div class="col-sm-6">
-                                                <input readonly name="total_sikap" type="number" class="form-control" id="total">
+                                                <input readonly name="total_sikap" type="number" class="form-control"
+                                                       id="total">
                                             </div>
                                         </div>
                                         <div class="mt-2 row">
-                                            <label for="total" class="col-sm-4 col-form-label font-bold">SCORE 40%</label>
+                                            <label for="total" class="col-sm-4 col-form-label font-bold">SCORE
+                                                40%</label>
                                             <div class="col-sm-6">
-                                                <input readonly name="total_percentage_sikap" type="number" class="form-control" id="total_percentage_sikap">
+                                                <input readonly name="total_percentage_sikap" type="number"
+                                                       class="form-control" id="total_percentage_sikap">
                                             </div>
                                         </div>
                                     </div>
@@ -105,36 +116,53 @@
                                 <div class="card">
                                     <div class="card-header">B. HASIL PEKERJAAN (60%)</div>
                                     <div class="card-body">
-                                        <div class="mt-3 row">
-                                            <div class="col-sm-6">
-                                                <select id="job_id" name="job_id" class="form-select <?= ($validation->hasError('job_id') ? 'is-invalid' : '') ?>" id="basicSelect">
-                                                    <option value="">--please select--</option>
-                                                    <?php foreach ($job as $j) : ?>
-                                                        <option value="<?= $j['jobId'] ?>" <?php if (old('job_id') == $j['jobId']) {
-                                                            echo 'selected';
-                                                        } ?>><?= $j['type_of_work'] ?></option>
-                                                    <?php endforeach; ?>
-                                                    <div class="invalid-feedback">
-                                                        <?= $validation->getError('job_id') ?>
-                                                    </div>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <input id="type" name="value_job_type" type="number" min="0" max="100" class="form-control">
-                                                <div class="type-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                        <div class="multiple-form">
+                                            <div id="after-add-more" class="control-group mt-3 row">
+                                                <div class="col-sm-5">
+                                                    <select
+                                                            id="job_id"
+                                                            name="job_id[]"
+                                                            class="form-select <?= ($validation->hasError('job_id') ? 'is-invalid' : '') ?>"
+                                                    >
+                                                        <option value="">--please select--</option>
+                                                        <?php foreach ($job as $j) : ?>
+                                                            <option value="<?= $j['jobId'] ?>" <?php if (old('job_id') == $j['jobId']) {
+                                                                echo 'selected';
+                                                            } ?>><?= $j['type_of_work'] ?></option>
+                                                        <?php endforeach; ?>
+                                                        <div class="invalid-feedback">
+                                                            <?= $validation->getError('job_id') ?>
+                                                        </div>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input id="type" name="value_job_type[]" type="number" min="0"
+                                                           max="100"
+                                                           class="form-control">
+                                                    <div class="type-invalid-feedback"
+                                                         style="color: #dc3545; font-size: 12px"></div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button id="add-more" class="btn btn-success" type="button">
+                                                        <i class="bi bi-plus-lg"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="row" style="padding-top: 13rem">
                                             <label for="total" class="col-sm-6 col-form-label">Total</label>
                                             <div class="col-sm-6">
-                                                <input readonly name="total_working_result" class="form-control" id="total_working">
+                                                <input readonly name="total_working_result" class="form-control"
+                                                       id="total_working">
                                             </div>
                                         </div>
                                         <div class="mt-2 row">
-                                            <label for="total" class="col-sm-6 col-form-label font-bold">SCORE 60%</label>
+                                            <label for="total" class="col-sm-6 col-form-label font-bold">SCORE
+                                                60%</label>
                                             <div class="col-sm-6">
-                                                <input readonly name="total_percentage_working_result" class="form-control" id="total_percentage_working_result">
+                                                <input readonly name="total_percentage_working_result"
+                                                       class="form-control" id="total_percentage_working_result">
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +189,6 @@
                         </div>
                     </div>
 
-
                     <div class="float-end pt-3">
                         <a type="button" class="btn btn-secondary" href="/admin/evaluation">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save
@@ -176,6 +203,19 @@
 
 <?= $this->section('scripts') ?>
     <script>
+        $(document).ready(function () {
+            $("#add-more").click(function () {
+                const html = $(".multiple-form").html();
+                $(".multiple-form").after(html);
+            });
+
+            // saat button remove di click control group akan didelete
+            $("body").on("click", "#remove", function () {
+                console.log('masuk')
+                $(this).parents(".control-group").remove();
+            });
+        });
+
         $("#disiplin, #loyalitas, #kerjasama, #perilaku").change(function () {
             let disiplin = document.getElementById('disiplin').value;
             let loyalitas = document.getElementById('loyalitas').value;
@@ -197,9 +237,9 @@
             document.getElementById("total_percentage_working_result").value = 60 / 100 * totalWorking;
 
             let percentageWorking = document.getElementById("total_percentage_working_result").value;
-            const res =  Number(percentageSikap) + Number(percentageWorking);
+            const res = Number(percentageSikap) + Number(percentageWorking);
             document.getElementById("totalNilai").value = res;
-            
+
             if (res) {
                 if (res > 90) {
                     document.getElementById("predikat").value = 'Sangat Baik'
@@ -213,7 +253,7 @@
             }
         });
 
-        let maximum = new RegExp('^[1-9][0-9]?$|^100$');
+        letmaximum = newRegExp('^[1-9][0-9]?$|^100$');
 
         $("#disiplin").change(function () {
             let disiplin = document.getElementById('disiplin').value;
