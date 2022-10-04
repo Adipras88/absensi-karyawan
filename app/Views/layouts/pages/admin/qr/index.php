@@ -162,7 +162,6 @@
         initCountry().then(result => console.log(JSON.stringify(result))).catch(e => console.log(e))
 
         let isQrToday = '<?php echo $qrCreated; ?>';
-        console.log({isQrToday})
 
         $(document).ready(function () {
             $('#table').DataTable({

@@ -22,12 +22,6 @@ class Evaluation extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'user_id' => [
-                'type' => 'INT',
-                'constraint' => 12,
-                'unsigned' => true,
-                'null' => true,
-            ],
             'disiplin' => [
                 'type' => 'INT',
                 'constraint' => 10,
