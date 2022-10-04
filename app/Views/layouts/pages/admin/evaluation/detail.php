@@ -9,7 +9,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                     <li class="breadcrumb-item"><a href="/admin/evaluation">Evaluation</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit
+                    <li class="breadcrumb-item active" aria-current="page">Detail
                     </li>
                 </ol>
             </nav>
@@ -99,21 +99,31 @@
                                 <div class="card">
                                     <div class="card-header">B. HASIL PEKERJAAN (60%)</div>
                                     <div class="card-body">
-                                        <div class="mt-3 row">
-                                            <div class="col-sm-6">
-                                                <select disabled id="job_id" name="job_id" class="form-select" id="basicSelect">
-                                                    <option value="">--please select--</option>
-                                                    <?php foreach ($job as $j) : ?>
-                                                        <option value="<?= $j['jobId'] ?>" selected><?= $j['type_of_work'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                        <?php foreach ($job_result as $key => $value) : ?>
+                                            <div class="multiple-form">
+                                                <div id="after-add-more" class="control-group mt-3 row">
+                                                    <div class="col-sm-6">
+                                                        <select disabled style="width: 100%" id="job_id" name="job_id[]"
+                                                                class="form-select"
+                                                                id="basicSelect">
+                                                            <option value="">--please select--</option>
+                                                            <?php foreach ($job as $j) : ?>
+                                                                <option value="<?= $job_result[$key]['job_id'] ?>"
+                                                                        selected><?= $job_result[$key]['type_of_work'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input disabled style="width: 100%" id="type" name="value_job_type[]" type="number" min="0"
+                                                               max="100"
+                                                               class="form-control" value="<?= $job_result[$key]['job_score'] ?>">
+                                                        <div class="type-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <input readonly id="type" name="value_job_type" type="number" min="0" max="100" class="form-control" value="<?= $evaluation['value_job_type'] ?>">
-                                            </div>
-                                        </div>
+                                        <?php endforeach; ?>
 
-                                        <div class="row" style="padding-top: 13rem">
+                                        <div class="row" style="padding-top: 3rem">
                                             <label for="total" class="col-sm-6 col-form-label">Total</label>
                                             <div class="col-sm-6">
                                                 <input readonly name="total_working_result" class="form-control" id="total_working" value="<?= $evaluation['total_working_result'] ?>">
@@ -151,9 +161,7 @@
 
 
                     <div class="float-end pt-3">
-                        <a type="button" class="btn btn-secondary" href="/admin/evaluation">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save
-                        </button>
+                        <a type="button" class="btn btn-secondary" href="/admin/evaluation">Back</a>
                     </div>
 
                 </form>

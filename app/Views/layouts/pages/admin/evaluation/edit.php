@@ -112,57 +112,57 @@
                       <?php foreach ($job_result as $key => $value) : ?>
                         <div class="multiple-form">
                           <div id="after-add-more" class="control-group mt-3 row">
-                            <div class="col-sm-5">
-                              <select style="width: 100%" id="job_id" name="job_id[]"
+                            <div class="col-sm-6">
+                              <select disabled style="width: 100%" id="job_id" name="job_id[]"
                                       class="form-select <?= ($validation->hasError('job_id') ? 'is-invalid' : '') ?>"
                                       id="basicSelect">
                                 <option value="">--please select--</option>
                                   <?php foreach ($job as $j) : ?>
-                                    <option value="<?= $j['jobId'] ?>"
-                                            selected><?= $job_result[$key]['type_of_work'] ?></option>
+                                      <option value="<?= $job_result[$key]['job_id'] ?>"
+                                              selected><?= $job_result[$key]['type_of_work'] ?></option>
                                   <?php endforeach; ?>
                                 <div class="invalid-feedback">
                                     <?= $validation->getError('job_id') ?>
                                 </div>
                               </select>
                             </div>
-                            <div class="col-sm-5">
-                              <input style="width: 100%" id="type" name="value_job_type[]" type="number" min="0"
+                            <div class="col-sm-6">
+                              <input disabled style="width: 100%" id="type" name="value_job_type[]" type="number" min="0"
                                      max="100"
                                      class="form-control" value="<?= $job_result[$key]['job_score'] ?>">
                               <div class="type-invalid-feedback" style="color: #dc3545; font-size: 12px"></div>
                             </div>
-                            <div class="col-sm-2">
-                              <?php if ($key !== $last_index) : ?>
-                                <button id="add-more" class="btn btn-success" type="button">
-                                  <i class="bi bi-plus-lg"></i>
-                                </button>
-                              <?php else : ?>
-                                <button id="remove" class="btn btn-danger" type="button">
-                                  <i class="bi bi-trash"></i>
-                                </button>
-                              <?php endif; ?>
-                            </div>
+<!--                            <div class="col-sm-2">-->
+<!--                              --><?php //if ($key !== $last_index) : ?>
+<!--                                <button id="add-more" class="btn btn-success" type="button">-->
+<!--                                  <i class="bi bi-plus-lg"></i>-->
+<!--                                </button>-->
+<!--                              --><?php //else : ?>
+<!--                                <button id="remove" class="btn btn-danger" type="button">-->
+<!--                                  <i class="bi bi-trash"></i>-->
+<!--                                </button>-->
+<!--                              --><?php //endif; ?>
+<!--                            </div>-->
                           </div>
                         </div>
                       <?php endforeach; ?>
 
-                    <div class="copy invisible">
+<!--                    <div class="copy invisible">
                       <div id="after-add-more" class="control-group mt-3 row">
                         <div class="col-sm-5">
                           <select
                             id="job_id"
                             name="job_id[]"
-                            class="form-select <?= ($validation->hasError('job_id') ? 'is-invalid' : '') ?>"
+                            class="form-select <?/*= ($validation->hasError('job_id') ? 'is-invalid' : '') */?>"
                           >
                             <option value="">--please select--</option>
-                              <?php foreach ($job as $j) : ?>
-                                <option value="<?= $j['jobId'] ?>" <?php if (old('job_id') == $j['jobId']) {
+                              <?php /*foreach ($job as $j) : */?>
+                                <option value="<?/*= $j['jobId'] */?>" <?php /*if (old('job_id') == $j['jobId']) {
                                     echo 'selected';
-                                } ?>><?= $j['type_of_work'] ?></option>
-                              <?php endforeach; ?>
+                                } */?>><?/*= $j['type_of_work'] */?></option>
+                              <?php /*endforeach; */?>
                             <div class="invalid-feedback">
-                                <?= $validation->getError('job_id') ?>
+                                <?/*= $validation->getError('job_id') */?>
                             </div>
                           </select>
                         </div>
@@ -179,7 +179,7 @@
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </div>-->
 
                     <div class="row" style="padding-top: 3rem">
                       <label for="total" class="col-sm-6 col-form-label">Total</label>
@@ -283,6 +283,7 @@
 
           let percentageWorking = document.getElementById("total_percentage_working_result").value;
           const res = Number(percentageSikap) + Number(percentageWorking);
+          console.log({res})
           document.getElementById("totalNilai").value = res;
 
           if (res) {

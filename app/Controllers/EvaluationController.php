@@ -115,14 +115,16 @@ class EvaluationController extends BaseController
             ->get()
             ->getResultArray();
 
+//        dd($dataEvaluationJob);
+
         $dataUser = $this->userModel->findAll();
         $dataJob = $this->jobModel->findAll();
 
         $numItems = count($dataEvaluationJob);
         $i = 0;
         $lastIndex = 0;
-        foreach($dataEvaluationJob as $key=>$value) {
-            if(++$i === $numItems) {
+        foreach ($dataEvaluationJob as $key => $value) {
+            if (++$i === $numItems) {
                 $lastIndex = $key;
             }
         }
@@ -154,6 +156,7 @@ class EvaluationController extends BaseController
 
         if ($this->validate($rules)) {
             $data = [
+                'evaluationId' => $id,
                 'user_id' => $this->request->getVar('user_id'),
                 'disiplin' => $this->request->getVar('disiplin'),
                 'loyalitas' => $this->request->getVar('loyalitas'),
@@ -170,11 +173,12 @@ class EvaluationController extends BaseController
             ];
             $this->evaluationModel->replace($data);
 
-            $currentJobResult = $this->evaluationJobResultsModel->where(['evaluation_id' => $id])->first();
+            $currentJobResult = $this->evaluationJobResultsModel->where(['evaluation_id' => $id])->get()->getResultArray();
 
             $dataArray = array();
-            foreach ($_POST['job_id'] as $key => $val) {
+            foreach ($currentJobResult as $key => $val) {
                 $dataArray[] = array(
+                    'jobResultsId' => $currentJobResult[$key]['jobResultsId'],
                     'evaluation_id' => $id,
                     'job_id' => $_POST['job_id'][$key],
                     'job_score' => $_POST['value_job_type'][$key],
@@ -183,6 +187,7 @@ class EvaluationController extends BaseController
                 );
             }
             array_pop($dataArray);
+//            dd($dataArray);
             $this->evaluationJobResultsModel->updateBatch($dataArray);
 
             session()->setFlashdata('success_evaluation', 'Update Performance Employee successfully.');
@@ -196,13 +201,19 @@ class EvaluationController extends BaseController
     public function detail($id)
     {
         $dataPerformance = $this->evaluationModel->where(['evaluationId' => $id])->first();
+        $dataEvaluationJob = $this->evaluationJobResultsModel
+            ->where(['evaluation_id' => $id])
+            ->join('jobs', 'jobs.jobId = evaluation_job_results.job_id')
+            ->get()
+            ->getResultArray();
         $dataUser = $this->userModel->findAll();
         $dataJob = $this->jobModel->findAll();
         $data = [
             'page' => 'evaluation',
             'evaluation' => $dataPerformance,
             'user' => $dataUser,
-            'job' => $dataJob
+            'job' => $dataJob,
+            'job_result' => $dataEvaluationJob,
         ];
 
         echo view('layouts/pages/admin/evaluation/detail', $data);
