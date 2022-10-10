@@ -241,15 +241,19 @@
 
 <?= $this->section('scripts') ?>
   <script>
+      // TOTAL FIELD MULTIPLE INPUT
+      let sum = 1;
+
       $(document).ready(function () {
           $("#add-more").click(function () {
+              sum += 1;
               const html = $(".copy").html();
               $(".multiple-form").after(html);
           });
 
           // saat button remove di click control group akan didelete
           $("body").on("click", "#remove", function () {
-              console.log('masuk')
+              sum -= 1;
               $(this).parents(".control-group").remove();
           });
       });
@@ -278,11 +282,11 @@
           values.forEach(str => {
               arrOfNum.push(Number(str));
           });
-
+          
           const totalWorking = arrOfNum.reduce((acc, curr) => acc + curr);
           let percentageSikap = document.getElementById("total_percentage_sikap").value;
           document.getElementById("total_working").value = totalWorking;
-          document.getElementById("total_percentage_working_result").value = 60 / 100 * totalWorking;
+          document.getElementById("total_percentage_working_result").value = (60 / 100) * (totalWorking / sum);
 
           let percentageWorking = document.getElementById("total_percentage_working_result").value;
           const res = Number(percentageSikap) + Number(percentageWorking);
