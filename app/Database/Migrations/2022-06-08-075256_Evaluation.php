@@ -72,6 +72,10 @@ class Evaluation extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'evaluation_created' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

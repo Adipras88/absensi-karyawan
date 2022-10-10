@@ -29,6 +29,7 @@ class EvaluationModel extends Model
         "predikat",
         "value_job_type",
         "total",
+        "evaluation_created",
         "created_at",
         "updated_at",
     ];

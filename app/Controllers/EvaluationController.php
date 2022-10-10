@@ -79,6 +79,7 @@ class EvaluationController extends BaseController
                 'total_percentage_working_result' => $this->request->getVar('total_percentage_working_result'),
                 'total' => $this->request->getVar('totalNilai'),
                 'predikat' => $this->request->getVar('predikat'),
+                'evaluation_created' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
             $this->evaluationModel->save($data);
@@ -114,8 +115,6 @@ class EvaluationController extends BaseController
             ->join('jobs', 'jobs.jobId = evaluation_job_results.job_id')
             ->get()
             ->getResultArray();
-
-//        dd($dataEvaluationJob);
 
         $dataUser = $this->userModel->findAll();
         $dataJob = $this->jobModel->findAll();
@@ -169,6 +168,7 @@ class EvaluationController extends BaseController
                 'total' => $this->request->getVar('totalNilai'),
                 'predikat' => $this->request->getVar('predikat'),
                 'created_at' => $current['created_at'],
+                'evaluation_created' => $current['evaluation_created'],
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
             $this->evaluationModel->replace($data);
