@@ -54,6 +54,7 @@
                 <div class="card">
                   <div class="card-header">A. PERILAKU KERJA (40%)</div>
                   <div class="card-body">
+                    <label class="mt-2 row text-danger">Masukkan range nilai 0 - 100 !</label>
                     <div class="mt-3 row">
                       <label for="disiplin" class="col-sm-4 col-form-label">Disiplin</label>
                       <div class="col-sm-6">
@@ -113,8 +114,9 @@
                 </div>
 
                 <button type="button" class="btn btn-info" onclick="onSubmitResultWork()">Check Nilai</button>
+                <button id="submit" type="submit" class="btn btn-primary disabled">Save</button>
               </div>
-
+                
               <!--RIGHT FORM-->
               <div class="col-md-6">
                 <div class="card">
@@ -229,8 +231,8 @@
 
           <div class="float-end pt-3">
             <a type="button" class="btn btn-secondary" href="/admin/evaluation">Cancel</a>
-            <button id="submit" type="submit" class="btn btn-primary disabled">Save
-            </button>
+            <!-- <button id="submit" type="submit" class="btn btn-primary disabled">Save
+            </button> -->
           </div>
 
         </form>
@@ -294,13 +296,13 @@
 
           if (res) {
               if (res >= 90) {
-                  document.getElementById("predikat").value = 'Sangat Baik'
+                  document.getElementById("predikat").value = 'SANGAT BAIK'
               } else if (res >= 75) {
-                  document.getElementById("predikat").value = 'Baik'
+                  document.getElementById("predikat").value = 'BAIK'
               } else if (res >= 60) {
-                  document.getElementById("predikat").value = 'Cukup'
+                  document.getElementById("predikat").value = 'CUKUP'
               } else if (res < 60) {
-                  document.getElementById("predikat").value = 'Kurang'
+                  document.getElementById("predikat").value = 'KURANG'
               }
           }
       };

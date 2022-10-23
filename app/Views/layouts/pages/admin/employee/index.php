@@ -52,9 +52,9 @@
 <!--                                       class="btn btn-info btn-sm"><i class="bi bi-pencil-square"></i></a>-->
                                     <a href="<?php echo base_url(); ?>/admin/employee/detail/<?= $e['userId'] ?>"
                                        class="btn btn-warning btn-sm"><i class="bi bi-eye-fill"></i></a>
-<!--                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"-->
-<!--                                            data-bs-target="#deleteModal--><?//= $e['userId'] ?><!--"><i-->
-<!--                                                class="bi bi-trash-fill"></i></button>-->
+                                   <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                          data-bs-target="#deleteModal<?= $e['userId'] ?>"><i
+                                             class="bi bi-trash-fill"></i></button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
