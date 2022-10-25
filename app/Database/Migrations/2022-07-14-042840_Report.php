@@ -33,7 +33,7 @@ class Report extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'description' => [
+            'description_report' => [
                 'type' => 'INT',
                 'type' => 'TEXT',
                 'null' => true,

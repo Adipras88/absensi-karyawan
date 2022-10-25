@@ -45,7 +45,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="user" class="form-label">Description <span style="color: red">*</span></label>
-                            <textarea disabled name="description" class="form-control" rows="10"><?= $report['description'] ?></textarea>
+                            <textarea disabled name="description" class="form-control" rows="10"><?= $report['description_report'] ?></textarea>
                         </div>
                     </div>
 

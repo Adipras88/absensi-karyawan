@@ -59,7 +59,7 @@ class ReportController extends BaseController
                 'user_id' => session()->get('id'),
                 'job_id' => $this->request->getVar('job_id'),
                 'total' => $this->request->getVar('total'),
-                'description' => $this->request->getVar('description'),
+                'description_report' => $this->request->getVar('description'),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
 
@@ -77,7 +77,6 @@ class ReportController extends BaseController
             ->join('jobs', 'jobs.jobId = reports.job_id')
             ->first();
 
-//        dd($dataReport);
         $data = [
             'page' => 'performance',
             'report' => $dataReport,
