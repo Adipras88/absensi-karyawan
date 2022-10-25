@@ -4,7 +4,11 @@
     <section>
         <div class="text-center">
             <h3 class="greeting"></h3>
-            <span style="color: gray">The recipe for success is to work hard and never give up. Enjoy your work!</span>
+            <?php if ($isLoggedIn) : ?>
+                <span style="background-color: green; color: white; padding: 4px; border-radius: 10px">You are absent today, Enjoy your work!</span>
+            <?php else : ?>
+                <span style="background-color: red; color: white; padding: 4px; border-radius: 10px">You are not absent today!</span>
+            <?php endif; ?>
         </div>
     </section>
 
