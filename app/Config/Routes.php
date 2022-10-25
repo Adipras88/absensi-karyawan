@@ -61,6 +61,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     /** ATTENDANCE **/
     $routes->get('attendance', 'AttendanceController::index');
     $routes->post('attendance/(:num)/(:any)', 'AttendanceController::changeStatus/$1/$2');
+    $routes->delete('attendance/delete/(:num)', 'AttendanceController::delete/$1');
 
     /** Quick Response Code **/
     $routes->get('qr', 'QRCodeController::index');

@@ -156,4 +156,11 @@ class AttendanceController extends BaseController
 
         return redirect()->to("/admin/attendance");
     }
+
+    public function delete($id)
+    {
+        $this->attendanceModel->where(['attendanceId' => $id])->delete();
+        session()->setFlashdata('success_change_status', 'Delete Attendance successfully.');
+        return redirect()->to('/admin/attendance');
+    }
 }
