@@ -112,6 +112,10 @@ $routes->group('user', ['filter' => 'authGuard'], function ($routes) {
     /** REPORT TASK **/
     $routes->get('report', 'UserController::report', ['filter' => 'authGuard']);
     $routes->post('report/create/submit', 'ReportController::createSave', ['filter' => 'authGuard']);
+
+    $routes->get('report/list', 'ReportController::reportList', ['filter' => 'authGuard']);
+    $routes->get('report/detail/(:num)', 'ReportController::reportDetail/$1');
+
     $routes->get('task', 'UserController::task', ['filter' => 'authGuard']);
     $routes->get('task/detail/(:num)', 'UserController::TaskDetail/$1', ['filter' => 'authGuard']);
 });

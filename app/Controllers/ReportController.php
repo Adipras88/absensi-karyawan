@@ -91,4 +91,37 @@ class ReportController extends BaseController
         session()->setFlashdata('success_performance', 'Delete Performance Employee successfully.');
         return redirect()->to('/admin/performance');
     }
+
+    public function reportList()
+    {
+        $data = [
+            'report' => $this->reportModel
+                ->where(['user_id' => session()->get('id')])
+                ->join('users', 'users.userId = reports.user_id')
+                ->findAll(),
+
+            'jobs' => $this->jobModel
+                ->where(['user_id' => session()->get('id')])
+                ->findAll(),
+        ];
+
+        // dd($data);
+
+        echo view('layouts/pages/user/report_list/index', $data);
+    }
+
+    public function reportDetail($id)
+    {
+        $dataReport = $this->reportModel
+            ->where(['reportId' => $id])
+            ->join('users', 'users.userId = reports.user_id')
+            ->join('jobs', 'jobs.jobId = reports.job_id')
+            ->first();
+
+        $data = [
+            'report' => $dataReport,
+        ];
+
+        echo view('layouts/pages/user/report_list/detail', $data);
+    }
 }

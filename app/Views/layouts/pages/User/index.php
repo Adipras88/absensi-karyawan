@@ -45,11 +45,11 @@
 
         <div class="row mt-4">
             <div class="col">
-                <a class="card card-menu stretched-link text-decoration-none" href="/user/task">
+                <a class="card card-menu stretched-link text-decoration-none" href="/user/report/list">
                     <div class="card-body text-center">
                         <div class="column justify-content-center">
                             <i class="bi bi-list-task mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
-                            <h5 class="title text-center m-0 pt-3" style="color: #5e5e5e">Daily Task</h5>
+                            <h5 class="title text-center m-0 pt-3" style="color: #5e5e5e">Daily Report</h5>
                         </div>
                     </div>
                 </a>
