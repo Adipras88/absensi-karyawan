@@ -8,6 +8,7 @@
                         <h5 style="font-size: 16px; margin: 0"><?= session()->get('fullname') ?></h5>
                     </button>
                     <ul class="dropdown-menu p-0" style="min-width: 7rem" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="<?php echo base_url(); ?>/user/profile">Profile</a></li>
                         <li><a class="dropdown-item" href="<?php echo base_url(); ?>/logout">Logout</a></li>
                     </ul>
                 </div>

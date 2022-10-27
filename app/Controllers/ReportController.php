@@ -44,13 +44,19 @@ class ReportController extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $currentData = $this->attendanceModel->where(['user_id' => session()->get('id')])->first();
+            $lastData = $this->attendanceModel
+            ->where(['user_id' => session()->get('id')])
+            ->orderBy('DATE(signin_at)', 'DESC')
+            ->first();
+
             $dataAttendance = [
-                'attendanceId' => $currentData['attendanceId'],
+                'attendanceId' => $lastData['attendanceId'],
                 'user_id' => session()->get('id'),
-                'is_logged_in' => FALSE,
+                'is_logged_in' => TRUE,
                 'category' => 'hadir',
-                'created_at' => $currentData['created_at'],
+                'signin_at' => $lastData['signin_at'],
+                'signout_at' => date('Y-m-d H:i:s'),
+                'created_at' => $lastData['created_at'],
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
             $this->attendanceModel->replace($dataAttendance);

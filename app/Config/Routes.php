@@ -118,6 +118,9 @@ $routes->group('user', ['filter' => 'authGuard'], function ($routes) {
 
     $routes->get('task', 'UserController::task', ['filter' => 'authGuard']);
     $routes->get('task/detail/(:num)', 'UserController::TaskDetail/$1', ['filter' => 'authGuard']);
+
+    /** PRESENCE **/
+    $routes->get('presence', 'AttendanceController::presence', ['filter' => 'authGuard']);
 });
 
 /*

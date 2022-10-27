@@ -163,4 +163,18 @@ class AttendanceController extends BaseController
         session()->setFlashdata('success_change_status', 'Delete Attendance successfully.');
         return redirect()->to('/admin/attendance');
     }
+
+    public function presence()
+    {
+        $presence = $this->attendanceModel
+            ->where(['user_id' => session()->get('id')])
+            ->orderBy('DATE(created_at)', 'DESC')
+            ->findAll();
+
+        $data = [
+            'presence' => $presence,
+        ];
+
+        echo view('layouts/pages/user/presence/index', $data);
+    }
 }
