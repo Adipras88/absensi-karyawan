@@ -20,14 +20,14 @@ class ReportModel extends Model
         "job_id",
         "description_report",
         "total",
-        "created_at",
+        "created_report",
         "updated_at",
     ];
 
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat = 'datetime';
-    protected $createdField = 'created_at';
+    protected $createdField = 'created_report';
     protected $updatedField = 'updated_at';
     protected $deletedField = 'deleted_at';
 

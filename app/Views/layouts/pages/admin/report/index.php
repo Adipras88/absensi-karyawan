@@ -44,12 +44,12 @@
                                 <td><?= $r['fullname'] ?></td>
                                 <td><?= $r['type_of_work'] ?></td>
                                 <td><?= $r['total'] ?></td>
-                                <td><?= (strlen(htmlspecialchars($r['description'])) > 13)
-                                        ? substr(htmlspecialchars($r['description']), 0, 40) . '...'
+                                <td><?= (strlen(htmlspecialchars($r['description_report'])) > 13)
+                                        ? substr(htmlspecialchars($r['description_report']), 0, 40) . '...'
                                         : htmlspecialchars(
-                                            $r['description']
+                                            $r['description_report']
                                         ); ?></td>
-                                <td><?= date_format(date_create($r['created_at']), 'd M Y H:i') ?></td>
+                                <td><?= date_format(date_create($r['created_report']), 'd M Y H:i') ?></td>
                                 <td>
                                     <a class="btn btn-warning btn-sm" href="<?= base_url(); ?>/admin/report/detail/<?= $r['reportId'] ?>"><i class="bi bi-eye-fill"></i></a>
                                 </td>

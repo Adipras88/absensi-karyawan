@@ -38,7 +38,7 @@ class Report extends Migration
                 'type' => 'TEXT',
                 'null' => true,
             ],
-            'created_at' => [
+            'created_report' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],

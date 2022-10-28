@@ -82,7 +82,7 @@ class UserController extends BaseController
         $dataJob = $this->jobModel->findAll();
         $detail = $this->reportModel
             ->where(['user_id' => $id])
-            ->where(['DATE(created_at)' => date('Y-m-d')])
+            ->where(['DATE(created_report)' => date('Y-m-d')])
             ->first();
 
         $data = [

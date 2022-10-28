@@ -27,6 +27,7 @@ class ReportController extends BaseController
         $data = [
             'page' => 'report',
             'report' => $this->reportModel
+                ->orderBy('DATE(created_report)', 'DESC')
                 ->join('users', 'users.userId = reports.user_id')
                 ->join('jobs', 'jobs.jobId = reports.job_id')
                 ->findAll(),
@@ -66,7 +67,7 @@ class ReportController extends BaseController
                 'job_id' => $this->request->getVar('job_id'),
                 'total' => $this->request->getVar('total'),
                 'description_report' => $this->request->getVar('description'),
-                'created_at' => date('Y-m-d H:i:s'),
+                'created_report' => date('Y-m-d H:i:s'),
             ];
 
             $this->reportModel->save($data);
@@ -102,16 +103,12 @@ class ReportController extends BaseController
     {
         $data = [
             'report' => $this->reportModel
-                ->where(['user_id' => session()->get('id')])
+                ->orderBy('DATE(created_report)', 'DESC')
+                ->where(['reports.user_id' => session()->get('id')])
                 ->join('users', 'users.userId = reports.user_id')
-                ->findAll(),
-
-            'jobs' => $this->jobModel
-                ->where(['user_id' => session()->get('id')])
+                ->join('jobs', 'jobs.jobId = reports.job_id')
                 ->findAll(),
         ];
-
-        // dd($data);
 
         echo view('layouts/pages/user/report_list/index', $data);
     }
