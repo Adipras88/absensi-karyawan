@@ -10,7 +10,7 @@ class Users extends Migration
     {
         $forge = \Config\Database::forge();
         $this->forge->addField([
-            'id' => [
+            'userId' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -21,32 +21,12 @@ class Users extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
-            'nik' => [
+            'ID_PKL' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
             ],
             'date_of_birth' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'place_of_birth' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'age' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'gender' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => true,
-            ],
-            'address' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
@@ -71,17 +51,25 @@ class Users extends Migration
                 'constraint' => 255,
                 'null' => true,
             ],
+            'school_origin' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
+            ],
+            'internship_length' => [
+                'type' => 'INT',
+                'constraint' => 10,
+                'null' => true,
+            ],
             'level' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
             ],
-            'last_signed_in' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
+            'registration_at' => [
+                'type' => 'DATETIME',
                 'null' => true,
             ],
-
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -97,7 +85,7 @@ class Users extends Migration
         ]);
 
         // Primary Key Table ID
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('userId', true);
 
         // Create Table Users
         $this->forge->createTable('users');

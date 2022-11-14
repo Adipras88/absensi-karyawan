@@ -92,6 +92,12 @@ section svg {
   height: 400px;
 }
 
+.card-success {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .card-img {
@@ -104,6 +110,10 @@ section svg {
 
   .title {
     font-size: 14px;
+  }
+
+  .detail-task {
+    margin-top: 20px;
   }
 }
 
@@ -119,5 +129,9 @@ section svg {
 
   .title {
     font-size: 20px;
+  }
+
+  .detail-task {
+    margin-top: 20px;
   }
 }

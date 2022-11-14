@@ -1,0 +1,1 @@
+cd /home/httpabse/test_absensi && /usr/local/bin/php spark cronjob:run >> /dev/null 2>&1

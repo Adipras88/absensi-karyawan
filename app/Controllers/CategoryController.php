@@ -8,11 +8,10 @@ use Config\Services;
 
 class CategoryController extends BaseController
 {
-    protected $categoryModel, $session;
+    protected $categoryModel;
     public function __construct()
     {
         $this->categoryModel = new CategoryModel();
-        $this->session = session();
 
         if (session()->get('level') != "admin") {
             echo 'Access denied';
@@ -27,8 +26,6 @@ class CategoryController extends BaseController
             'page' => 'category',
             'categories' => $categories
         ];
-
-        $data['data'] = $data;
 
         return view('layouts/pages/admin/category/index', $data);
     }
@@ -46,7 +43,6 @@ class CategoryController extends BaseController
 
     public function save()
     {
-        // $content    = nl2br($this->request->getPost('content'));
         helper(['form']);
         $rules = [
             'name' => 'required|min_length[1]|is_unique[categories.name]',
@@ -60,7 +56,7 @@ class CategoryController extends BaseController
             ];
 
             $this->categoryModel->save($data);
-            $this->session->setFlashdata('success_category', 'Create Category successfully.');
+            session()->setFlashdata('success_category', 'Create Category successfully.');
             return redirect()->to("/admin/category");
         } else {
             $validation = Services::validation();
@@ -74,7 +70,7 @@ class CategoryController extends BaseController
         $data = [
             'page' => 'category',
             'validation' => Services::validation(),
-            'category' => $this->categoryModel->where(['id' => $id])->first(),
+            'category' => $this->categoryModel->where(['categoryId' => $id])->first(),
         ];
 
         echo view('layouts/pages/admin/category/detail', $data);
@@ -86,7 +82,7 @@ class CategoryController extends BaseController
         $data = [
             'page' => 'category',
             'validation' => Services::validation(),
-            'category' => $this->categoryModel->where(['id' => $id])->first(),
+            'category' => $this->categoryModel->where(['categoryId' => $id])->first(),
         ];
 
         echo view('layouts/pages/admin/category/edit', $data);
@@ -101,14 +97,14 @@ class CategoryController extends BaseController
 
         if ($this->validate($rules)) {
             $data = [
-                'id' => $id,
+                'categoryId' => $id,
                 'name' => $this->request->getVar('name'),
                 'slug' => url_title($this->request->getVar('name'), '-', TRUE),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            $this->categoryModel->save($data);
-            $this->session->setFlashdata('success_category', 'Update Category successfully.');
+            $this->categoryModel->replace($data);
+            session()->setFlashdata('success_category', 'Update Category successfully.');
             return redirect()->to("/admin/category");
         } else {
             $validation = Services::validation();
@@ -118,8 +114,8 @@ class CategoryController extends BaseController
 
     public function delete($id)
     {
-        $this->categoryModel->delete($id);
-        $this->session->setFlashdata('success_category', 'Delete Category successfully.');
+        $this->categoryModel->where(['categoryId' => $id])->delete();
+        session()->setFlashdata('success_category', 'Delete Category successfully.');
         return redirect()->to('/admin/category');
     }
 }

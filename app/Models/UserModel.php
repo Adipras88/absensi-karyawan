@@ -16,18 +16,16 @@ class UserModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         "fullname",
-        "nik",
+        "ID_PKL",
         "date_of_birth",
-        "place_of_birth",
-        "age",
-        "gender",
-        "address",
         "phone_number",
         "position",
         "level",
-        "last_signed_in",
         "email",
         "password",
+        "school_origin",
+        "internship_length",
+        "registration_at",
         "created_at",
         "updated_at",
     ];
@@ -55,4 +53,19 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getUsersJob($id)
+    {
+        $jobDetail = $this
+        ->join('users', 'users.id = jobs.user_id')
+        ->find($id);
+        
+        return $jobDetail;
+    }
+
+    public function findJobByUserId($id)
+    {
+        $jobDetailByUserId = $this->select('id')->where("user_id", $id)->findAll();
+        return $jobDetailByUserId;
+    }
 }

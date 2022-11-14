@@ -10,7 +10,7 @@ class Jobs extends Migration
     {
         $this->db->disableForeignKeyChecks();
         $this->forge->addField([
-            'id' => [
+            'jobId' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -57,10 +57,10 @@ class Jobs extends Migration
         ]);
 
         // Primary Key Table ID
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('jobId', true);
 
         // Added Relation
-        $this->forge->addForeignKey('user_id', 'users', 'id');
+        $this->forge->addForeignKey('user_id', 'users', 'userId');
 
         // Create Table Jobs
         $this->forge->createTable('jobs');

@@ -21,12 +21,6 @@ class CategoriesSeeder extends Seeder
                 'created_at' => date("Y-m-d", time()),
                 'updated_at' => date("Y-m-d", time()),
             ],
-            [
-                'name' => "Cuti",
-                'slug' => "cuti",
-                'created_at' => date("Y-m-d", time()),
-                'updated_at' => date("Y-m-d", time()),
-            ],
         ];
         $this->db->table('categories')->insertBatch($data);
     }

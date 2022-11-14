@@ -10,7 +10,7 @@ class Category extends Migration
     {
         $forge = \Config\Database::forge();
         $this->forge->addField([
-            'id' => [
+            'categoryId' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -42,7 +42,7 @@ class Category extends Migration
         ]);
 
         // Primary Key Table ID
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('categoryId', true);
 
         // Create Table Categories
         $this->forge->createTable('categories');

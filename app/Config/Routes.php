@@ -33,57 +33,95 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.s
 $routes->get('/login', 'SigninController::index');
 $routes->get('/logout', 'SigninController::logout');
-$routes->add('/login/submit', 'SigninController::loginAuth');
-$routes->get('/register', 'SignupController::index');
+$routes->post('/login/submit', 'SigninController::loginAuth');
+$routes->get('/register', 'SigninController::register');
+$routes->post('/register/submit', 'SigninController::registerSubmit');
+$routes->get('/qr/create', 'QRServiceController::create');
 
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     /** EMPLOYEE **/
-    $routes->get('dashboard', 'Home::index');
-    $routes->get('employee', 'Employee::index');
-    $routes->add('employee/form', 'Employee::create');
-    $routes->add('employee/save', 'Employee::save');
-    $routes->add('employee/edit/(:num)', 'Employee::edit/$1');
-    $routes->add('employee/update/(:num)', 'Employee::update/$1');
-    $routes->add('employee/detail/(:num)', 'Employee::detail/$1');
-    $routes->delete('employee/delete/(:num)', 'Employee::delete/$1');
+    $routes->get('dashboard', 'HomeController::index');
+    $routes->get('employee', 'EmployeeController::index');
+    $routes->get('employee/form', 'EmployeeController::create');
+    $routes->post('employee/save', 'EmployeeController::save');
+    $routes->get('employee/edit/(:num)', 'EmployeeController::edit/$1');
+    $routes->post('employee/update/(:num)', 'EmployeeController::update/$1');
+    $routes->get('employee/detail/(:num)', 'EmployeeController::detail/$1');
+    $routes->delete('employee/delete/(:num)', 'EmployeeController::delete/$1');
 
     /** JOBS **/
-    $routes->get('job', 'Job::index');
-    $routes->get('job/form', 'Job::form');
-    $routes->add('job/save', 'Job::save');
-    $routes->add('job/edit/(:num)', 'Job::edit/$1');
-    $routes->add('job/update/(:num)', 'Job::update/$1');
-    $routes->add('job/detail/(:num)', 'Job::detail/$1');
-    $routes->delete('job/delete/(:num)', 'Job::delete/$1');
+    $routes->get('job', 'JobController::index');
+    $routes->get('job/form', 'JobController::form');
+    $routes->get('job/form/(:num)', 'JobController::form/$1');
+    $routes->post('job/save', 'JobController::save');
+    $routes->get('job/edit/(:num)', 'JobController::edit/$1');
+    $routes->post('job/update/(:num)', 'JobController::update/$1');
+    $routes->get('job/detail/(:num)', 'JobController::detail/$1');
+    $routes->delete('job/delete/(:num)', 'JobController::delete/$1');
 
-    /** ATTEDANCE **/
-    $routes->get('attedance', 'AttedanceController::index');
+    /** ATTENDANCE **/
+    $routes->get('attendance', 'AttendanceController::index');
+    $routes->post('attendance/(:num)/(:any)', 'AttendanceController::changeStatus/$1/$2');
+    $routes->delete('attendance/delete/(:num)', 'AttendanceController::delete/$1');
+
+    /** Quick Response Code **/
+    $routes->get('qr', 'QRCodeController::index');
+    $routes->post('qr/save', 'QRCodeController::add_data');
+    $routes->post('qr/update/(:num)', 'QRCodeController::edit_data/$1');
+    $routes->delete('qr/delete/(:num)', 'QRCodeController::remove_data/$1');
 
     /** CATEGORIES **/
     $routes->get('category', 'CategoryController::index');
-    $routes->add('category/form', 'CategoryController::create');
-    $routes->add('category/save', 'CategoryController::save');
-    $routes->add('category/edit/(:num)', 'CategoryController::edit/$1');
-    $routes->add('category/update/(:num)', 'CategoryController::update/$1');
-    $routes->add('category/detail/(:num)', 'CategoryController::detail/$1');
+    $routes->get('category/form', 'CategoryController::create');
+    $routes->post('category/save', 'CategoryController::save');
+    $routes->get('category/edit/(:num)', 'CategoryController::edit/$1');
+    $routes->post('category/update/(:num)', 'CategoryController::update/$1');
+    $routes->get('category/detail/(:num)', 'CategoryController::detail/$1');
     $routes->delete('category/delete/(:num)', 'CategoryController::delete/$1');
+
+    /** PERFORMANCE **/
+    $routes->get('evaluation', 'EvaluationController::index');
+    $routes->get('evaluation/create', 'EvaluationController::create');
+    $routes->post('evaluation/create/submit', 'EvaluationController::createSave');
+    $routes->get('evaluation/edit/(:num)', 'EvaluationController::edit/$1');
+    $routes->post('evaluation/edit/submit/(:num)', 'EvaluationController::editSave/$1');
+    $routes->get('evaluation/detail/(:num)', 'EvaluationController::detail/$1');
+    $routes->delete('evaluation/delete/(:num)', 'EvaluationController::delete/$1');
+
+    /** EVALUATION **/
+    $routes->get('report', 'ReportController::index');
+    $routes->get('report/detail/(:num)', 'ReportController::detail/$1');
+    $routes->delete('report/delete/(:num)', 'ReportController::delete/$1');
 });
 
-// $routes->group('employee', static function ($routes) {
-//     $routes->get('dashboard', 'H')
-// })
-
 $routes->group('user', ['filter' => 'authGuard'], function ($routes) {
-    $routes->get('/', 'User::index', ['filter' => 'authGuard']);
-    $routes->get('scan', 'User::scanner', ['filter' => 'authGuard']);
-    $routes->get('profile', 'User::profile', ['filter' => 'authGuard']);
-    $routes->get('absent', 'User::absent', ['filter' => 'authGuard']);
+    $routes->get('/', 'UserController::index', ['filter' => 'authGuard']);
+    $routes->get('profile', 'UserController::profile', ['filter' => 'authGuard']);
 
-    $routes->get('permission', 'AttedanceController::permission', ['filter' => 'authGuard']);
-    $routes->add('permission/submit', 'AttedanceController::permissionSave', ['filter' => 'authGuard']);
+    /** ABSENT **/
+    $routes->get('absent', 'UserController::absent', ['filter' => 'authGuard']);
+    $routes->get('scan', 'AttendanceController::scanner', ['filter' => 'authGuard']);
+    $routes->post('scan/submit', 'AttendanceController::scannerSave', ['filter' => 'authGuard']);
 
-    $routes->get('report', 'User::report', ['filter' => 'authGuard']);
-    $routes->get('task', 'User::task', ['filter' => 'authGuard']);
+    /** PERMISSIONS **/
+    $routes->get('permission', 'AttendanceController::permission', ['filter' => 'authGuard']);
+    $routes->post('permission/submit', 'AttendanceController::permissionSave', ['filter' => 'authGuard']);
+
+    /** QR CODE **/
+    $routes->get('qrcode', 'AttendanceController::getQrCode', ['filter' => 'authGuard']);
+
+    /** REPORT TASK **/
+    $routes->get('report', 'UserController::report', ['filter' => 'authGuard']);
+    $routes->post('report/create/submit', 'ReportController::createSave', ['filter' => 'authGuard']);
+
+    $routes->get('report/list', 'ReportController::reportList', ['filter' => 'authGuard']);
+    $routes->get('report/detail/(:num)', 'ReportController::reportDetail/$1');
+
+    $routes->get('task', 'UserController::task', ['filter' => 'authGuard']);
+    $routes->get('task/detail/(:num)', 'UserController::TaskDetail/$1', ['filter' => 'authGuard']);
+
+    /** PRESENCE **/
+    $routes->get('presence', 'AttendanceController::presence', ['filter' => 'authGuard']);
 });
 
 /*
