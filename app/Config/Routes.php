@@ -36,6 +36,7 @@ $routes->get('/logout', 'SigninController::logout');
 $routes->post('/login/submit', 'SigninController::loginAuth');
 $routes->get('/register', 'SigninController::register');
 $routes->post('/register/submit', 'SigninController::registerSubmit');
+$routes->get('/qr/create', 'QRServiceController::create');
 
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     /** EMPLOYEE **/

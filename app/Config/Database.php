@@ -34,7 +34,7 @@ class Database extends Config
         'DSN'      => '',
         'hostname' => 'localhost',
         'username' => 'root',
-        'password' => '',
+        'password' => 'macbookpro',
         'database' => 'absensi_ci4',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
