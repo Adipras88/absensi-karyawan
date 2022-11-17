@@ -30,8 +30,7 @@ class AttendanceController extends BaseController
             ->findAll();
 
         $entry_absent = $attedance ? date_format(date_create($attedance[0]['signin_at']), 'Hi') : null;
-        dd((int)$entry_absent);
-        $late = (int)$entry_absent <= 800;
+        $late = (int)$entry_absent >= 800;
 
         $data = [
             'page' => 'attendance',
