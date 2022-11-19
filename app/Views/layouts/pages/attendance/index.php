@@ -2,7 +2,6 @@
 
 <?= $this->section('content') ?>
 <div class="container-fluid">
-
     <div class="d-sm-flex flex-column mb-4">
         <h1 class="h3 mb-3 text-gray-800">Attedance</h1>
 
@@ -87,7 +86,7 @@
                                 <!--END SIGN OUT-->
 
                                 <!--START LATE TIME-->
-                                <?php if ($late === true && $e['category'] === 'hadir') : ?>
+                                <?php if ($e['late_status'] === true && $e['category'] === 'hadir') : ?>
                                     <td><?= date_format(date_create($e['signin_at']), 'H:i') ?></td>
                                 <?php else : ?>
                                     <td>-</td>
@@ -95,9 +94,9 @@
                                 <!--END LATE TIME-->
 
                                 <!--START STATUS ATTENDANCE-->
-                                <?php if ($late === true && $e['category'] === 'hadir') : ?>
+                                <?php if ($e['late_status'] === true && $e['category'] === 'hadir') : ?>
                                     <td><span class="badge rounded-pill bg-danger">Late</span></td>
-                                <?php elseif ($late === false && $e['category'] === 'hadir') : ?>
+                                <?php elseif ($e['late_status'] === false && $e['category'] === 'hadir') : ?>
                                     <td><span class="badge rounded-pill bg-success">On Time</span></td>
                                 <?php elseif ($e['category'] !== 'hadir' && $e['status'] === 'PENDING') : ?>
                                     <td><span class="badge rounded-pill bg-warning">Pending</span></td>

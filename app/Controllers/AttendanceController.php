@@ -29,14 +29,19 @@ class AttendanceController extends BaseController
             ->join('users', 'users.userId = attendances.user_id', 'left')
             ->findAll();
 
-        $entry_absent = $attedance ? date_format(date_create($attedance[0]['signin_at']), 'Hi') : null;
-        $late = (int)$entry_absent >= 800;
+        $user = array();
+        foreach ($attedance as $row) {
+            $entry_absent = $row ? date_format(date_create($row['signin_at']), 'Hi') : null;
+            $late = $entry_absent >= 800;
+            $row['late_status'] = $late;
+            $user[] = $row;
+        }
 
         $data = [
             'page' => 'attendance',
-            'attendance' => $attedance,
-            'late' => $late,
+            'attendance' => $user,
         ];
+
 
         echo view('layouts/pages/attendance/index', $data);
     }
