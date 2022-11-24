@@ -110,7 +110,7 @@
             scanner.addListener('scan', function (content) {
                 console.log({IP})
                 if ('<?= $qrToday ?>' === content) {
-                    if (IP == '180.250.22.66') { //36.70.255.126
+                    // if (IP == '180.250.22.66') { //36.70.255.126
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',
@@ -123,16 +123,16 @@
                                 $("#myForm").submit();
                             });
                         })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'You must be in the office area!',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            heightAuto: false,
-                        })
-                    }
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Error!',
+                    //         text: 'You must be in the office area!',
+                    //         showConfirmButton: false,
+                    //         timer: 3000,
+                    //         heightAuto: false,
+                    //     })
+                    // }
                 } else {
                     Swal.fire({
                         icon: 'error',

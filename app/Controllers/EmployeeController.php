@@ -185,7 +185,7 @@ class EmployeeController extends BaseController
         if ($queryUserExist) {
             if ($queryJobExistInUser) {
                 foreach ($queryJobExistInUser as $job) {
-                    $this->jobModel->delete($job);
+                    $this->jobModel->delete($job['jobId']);
                 }
                 session()->setFlashdata('success', 'Delete Employee successfully.');
                 return redirect()->to('/admin/employee');
