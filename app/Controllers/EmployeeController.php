@@ -23,7 +23,7 @@ class EmployeeController extends BaseController
 
     public function index()
     {
-        $user = $this->userModel->findAll();
+        $user = $this->userModel->where(['deleted_at' => null])->findAll();
         $data = [
             'page' => 'employee',
             'user' => $user
@@ -179,25 +179,51 @@ class EmployeeController extends BaseController
 
     public function delete($id)
     {
-        $queryUserExist = $this->userModel->find();
-        $queryJobExistInUser = $this->jobModel->findJobByUserId($id);
+        $currentData = $this->userModel->where(['userId' => $id])->first();
+        $data = [
+            'userId' => $id,
+            'ID_PKL' => $currentData['ID_PKL'],
+            'fullname' => $currentData['fullname'],
+            'email' => $currentData['email'],
+            'date_of_birth' => $currentData['date_of_birth'],
+            'phone_number' => $currentData['phone_number'],
+            'position' => $currentData['position'],
+            'password' => $currentData['password'],
+            'school_origin' => $currentData['school_origin'],
+            'internship_length' => $currentData['internship_length'],
+            'level' => $currentData['level'],
+            'registration_at' => $currentData['registration_at'],
+            'created_at' => $currentData['created_at'],
+            'updated_at' => $currentData['deleted_at'],
+            'deleted_at' => date('Y-m-d H:i:s'),
+        ];
 
-        if ($queryUserExist) {
-            if ($queryJobExistInUser) {
-                foreach ($queryJobExistInUser as $job) {
-                    $this->jobModel->delete($job['jobId']);
-                }
-                session()->setFlashdata('success', 'Delete Employee successfully.');
-                return redirect()->to('/admin/employee');
-            } else {
-                $this->userModel->delete($id);
-                session()->setFlashdata('success', 'Delete Employee successfully.');
-                return redirect()->to('/admin/employee');
-            }
-            $this->userModel->delete($id);
-        } else {
-            return "User Not Found!";
-            die();
-        }
+        $this->userModel->replace($data);
+        session()->setFlashdata('success', 'Update Employee successfully.');
+        return redirect()->to("/admin/employee");
     }
+
+    // public function delete($id)
+    // {
+    //     $queryUserExist = $this->userModel->find();
+    //     $queryJobExistInUser = $this->jobModel->findJobByUserId($id);
+
+    //     if ($queryUserExist) {
+    //         if ($queryJobExistInUser) {
+    //             foreach ($queryJobExistInUser as $job) {
+    //                 $this->jobModel->delete($job['jobId']);
+    //             }
+    //             session()->setFlashdata('success', 'Delete Employee successfully.');
+    //             return redirect()->to('/admin/employee');
+    //         } else {
+    //             $this->userModel->delete($id);
+    //             session()->setFlashdata('success', 'Delete Employee successfully.');
+    //             return redirect()->to('/admin/employee');
+    //         }
+    //         $this->userModel->delete($id);
+    //     } else {
+    //         return "User Not Found!";
+    //         die();
+    //     }
+    // }
 }

@@ -27,6 +27,7 @@ class AttendanceController extends BaseController
     {
         $attedance = $this->attendanceModel
             ->join('users', 'users.userId = attendances.user_id', 'left')
+            ->orderBy('DATE(users.created_at)', 'DESC')
             ->findAll();
 
         $user = array();

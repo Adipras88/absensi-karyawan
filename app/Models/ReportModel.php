@@ -47,4 +47,10 @@ class ReportModel extends Model
     protected $afterFind = [];
     protected $beforeDelete = [];
     protected $afterDelete = [];
+
+    public function getSum() {
+        $sql = "SELECT SUM(reports.total) as total FROM reports";
+        $result = $this->db->query($sql)->getResultArray();
+        return $result[0]['total'];
+    }
 }

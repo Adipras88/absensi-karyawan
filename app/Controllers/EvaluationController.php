@@ -200,7 +200,10 @@ class EvaluationController extends BaseController
 
     public function detail($id)
     {
-        $dataPerformance = $this->evaluationModel->where(['evaluationId' => $id])->first();
+        $dataPerformance = $this->evaluationModel
+            ->where(['evaluationId' => $id])
+            ->join('users', 'users.userId = evaluations.user_id')
+            ->first();
         $dataEvaluationJob = $this->evaluationJobResultsModel
             ->where(['evaluation_id' => $id])
             ->join('jobs', 'jobs.jobId = evaluation_job_results.job_id')
