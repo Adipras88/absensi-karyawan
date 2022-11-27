@@ -110,7 +110,11 @@
             scanner.addListener('scan', function (content) {
                 console.log({IP})
                 if ('<?= $qrToday ?>' === content) {
+<<<<<<< Updated upstream
                     if (IP == '180.250.22.66') { //36.70.255.126
+=======
+                    if (IP == '180.250.22.66') { //36.70.255.126,180.250.22.66
+>>>>>>> Stashed changes
                         Swal.fire({
                             icon: 'success',
                             title: 'Success!',

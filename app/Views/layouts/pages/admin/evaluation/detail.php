@@ -29,13 +29,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="user" class="form-label">User <span style="color: red">*</span></label>
-                                    <select disabled id="employee" name="user_id"
-                                            class="form-select id="basicSelect">
-                                        <option value="">--please select--</option>
-                                        <?php foreach ($user as $e) : ?>
-                                            <option value="<?= $e['userId'] ?>" selected><?= $e['fullname'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input disabled name="fullname" class="form-control" id="fullname"
+                                        value="<?= $evaluation['fullname'] ?>">
                                 </div>
                             </div>
                         </div>

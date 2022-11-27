@@ -27,19 +27,26 @@ class AttendanceController extends BaseController
     {
         $attedance = $this->attendanceModel
             ->join('users', 'users.userId = attendances.user_id', 'left')
+            ->orderBy('DATE(users.created_at)', 'DESC')
             ->findAll();
 
-        $entry_absent = $attedance ? date_format(date_create($attedance[0]['signin_at']), 'Hi') : null;
-        $late = (int)$entry_absent <= 8000;
+        $user = array();
+        foreach ($attedance as $row) {
+            $entry_absent = $row ? date_format(date_create($row['signin_at']), 'Hi') : null;
+            $late = (int)$entry_absent >= 800;
+            $row['late_status'] = $late;
+            $user[] = $row;
+        }
 
         $data = [
             'page' => 'attendance',
-            'attendance' => $attedance,
-            'late' => $late,
+            'attendance' => $user,
         ];
+
 
         echo view('layouts/pages/attendance/index', $data);
     }
+
 
     public function getQrCode()
     {
@@ -175,6 +182,6 @@ class AttendanceController extends BaseController
             'presence' => $presence,
         ];
 
-        echo view('layouts/pages/user/presence/index', $data);
+        echo view('layouts/pages/User/presence/index', $data);
     }
 }

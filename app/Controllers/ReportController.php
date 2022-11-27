@@ -110,7 +110,7 @@ class ReportController extends BaseController
                 ->findAll(),
         ];
 
-        echo view('layouts/pages/user/report_list/index', $data);
+        echo view('layouts/pages/User/report_list/index', $data);
     }
 
     public function reportDetail($id)
@@ -125,6 +125,6 @@ class ReportController extends BaseController
             'report' => $dataReport,
         ];
 
-        echo view('layouts/pages/user/report_list/detail', $data);
+        echo view('layouts/pages/User/report_list/detail', $data);
     }
 }

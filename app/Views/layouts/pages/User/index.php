@@ -21,14 +21,25 @@
 <section class="mt-4">
     <div class="row">
         <div class="col">
-            <a class="card card-menu stretched-link text-decoration-none" href="/user/absent">
-                <div class="card-body text-center">
-                    <div class="column justify-content-center">
-                        <i class="bi bi-box-arrow-in-right mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
-                        <h5 class="title text-center m-0 pt-3" style="color: #5e5e5e">Check In</h5>
+            <?php if (!$isLoggedIn) : ?>
+                <a class="card card-menu stretched-link text-decoration-none" href="/user/absent">
+                    <div class="card-body text-center">
+                        <div class="column justify-content-center">
+                            <i class="bi bi-box-arrow-in-right mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
+                            <h5 class="title text-center m-0 pt-3" style="color: #5e5e5e">Check In</h5>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            <?php else : ?>
+                <a class="card card-menu stretched-link text-decoration-none" onclick="isLogged()">
+                    <div class="card-body text-center">
+                        <div class="column justify-content-center">
+                            <i class="bi bi-box-arrow-in-right mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
+                            <h5 class="title text-center m-0 pt-3" style="color: #5e5e5e">Check In</h5>
+                        </div>
+                    </div>
+                </a>
+            <?php endif; ?>
         </div>
         <div class="col">
             <?php if ($isLoggedIn) : ?>
@@ -41,7 +52,11 @@
                     </div>
                 </a>
             <?php else : ?>
+<<<<<<< Updated upstream
                 <a class="card card-menu stretched-link text-decoration-none" onclick="isLoggedIn()">
+=======
+                <a class="card card-menu stretched-link text-decoration-none" onclick="notYet()">
+>>>>>>> Stashed changes
                     <div class="card-body text-center">
                         <div class="column justify-content-center">
                             <i class="bi bi-box-arrow-left mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
@@ -89,7 +104,11 @@
         setInterval(dateTime, 100);
     });
 
+<<<<<<< Updated upstream
     function isLoggedIn() {
+=======
+    function notYet() {
+>>>>>>> Stashed changes
         Swal.fire({
             icon: 'info',
             title: 'FYI!',
@@ -100,6 +119,20 @@
         })
     }
 
+<<<<<<< Updated upstream
+=======
+    function isLogged() {
+        Swal.fire({
+            icon: 'info',
+            title: 'FYI!',
+            text: 'You\'ve been absent today!',
+            showConfirmButton: false,
+            timer: 3500,
+            heightAuto: false,
+        })
+    }
+
+>>>>>>> Stashed changes
     $(".alert").fadeTo(2000, 500).slideUp(500, function() {
         $(".alert").slideUp(500);
     });

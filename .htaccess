@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 DirectoryIndex index.php
 
 Options -Indexes
@@ -9,3 +10,16 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+=======
+DirectoryIndex index.php
+
+Options -Indexes
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+>>>>>>> Stashed changes

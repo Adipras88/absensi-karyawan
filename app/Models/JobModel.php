@@ -8,7 +8,7 @@ class JobModel extends Model
 {
     protected $DBGroup = 'default';
     protected $table = 'jobs';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'jobId';
     protected $useAutoIncrement = true;
     protected $insertID = 0;
     protected $returnType = 'array';
@@ -55,7 +55,7 @@ class JobModel extends Model
 
     public function findJobByUserId($id)
     {
-        return $this->select('id')->where("user_id", $id)->findAll();
+        return $this->select('jobId')->where("user_id", $id)->findAll();
     }
 
 }

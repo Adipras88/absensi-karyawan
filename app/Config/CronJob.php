@@ -83,6 +83,7 @@ class CronJob extends BaseConfig
     {
         // Set schedule Cron Job in weekdays at 7 am
         $schedule->url(base_url('qr/create'))->weekdays('7:00 am');
+        // $schedule->url(base_url('qr/create'))->weekends('11:42 am');
 
         // Set schedule Cron Job every five minutes
         // $schedule->url(base_url('qr/create'))->everyFiveMinutes();
@@ -91,11 +92,20 @@ class CronJob extends BaseConfig
         // $schedule->url(base_url('qr/create'))->everyMinute();
 
         // Set schedule Cron Job in weekend at 1:05 am
-        // $schedule->url(base_url('qr/create'))->weekends('7:00 am');
-
+        // $schedule->url(base_url('qr/create'))->weekends('11:05 am');
+        
         // Untuk Testing
-        $schedule->call(function() { 
-            log_message('error', 'Test Cron Job Setiap Menit');
-        })->everyMinute();
+        // $schedule->call(function() { 
+        //     log_message('error', 'Test Cron Job Setiap Menit');
+        // })->everyMinute();
+        // $schedule->call(function() { 
+        //     log_message('error', 'Test Cron Job Setiap 5 Menit');
+        // })->everyFiveMinutes();
+        // $schedule->call(function() { 
+        //     log_message('error', 'Test Cron Job Setiap Sabtu Jam 11');
+        // })->saturdays('11:00 am');
+        // $schedule->call(function() { 
+        //     log_message('error', 'Test Cron Job Setiap weekend Jam 11:03');
+        // })->weekends('11:03 am');
     }
 }

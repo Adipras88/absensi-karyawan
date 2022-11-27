@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'users';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'userId';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
@@ -57,7 +57,7 @@ class UserModel extends Model
     public function getUsersJob($id)
     {
         $jobDetail = $this
-        ->join('users', 'users.id = jobs.user_id')
+        ->join('users', 'users.userId = jobs.user_id')
         ->find($id);
         
         return $jobDetail;
@@ -65,7 +65,7 @@ class UserModel extends Model
 
     public function findJobByUserId($id)
     {
-        $jobDetailByUserId = $this->select('id')->where("user_id", $id)->findAll();
+        $jobDetailByUserId = $this->select('userId')->where("user_id", $id)->findAll();
         return $jobDetailByUserId;
     }
 }

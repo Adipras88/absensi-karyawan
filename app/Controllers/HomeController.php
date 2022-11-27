@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AttendanceModel;
 use App\Models\JobModel;
 use App\Models\UserModel;
+use App\Models\ReportModel;
 use DateTime;
 
 class HomeController extends BaseController
@@ -16,6 +17,7 @@ class HomeController extends BaseController
         $this->jobModel = new JobModel();
         $this->userModel = new UserModel();
         $this->attedanceModel = new AttendanceModel();
+        $this->reportModel = new ReportModel();
 
         if (session()->get('level') != "admin") {
             echo 'Access denied';
@@ -26,19 +28,19 @@ class HomeController extends BaseController
     public function index()
     {
         // Get Today Date + 1
-        $todayPlusOne = date('Y-m-d');
+        $today = date('Y-m-d');
 
         $data = [
             // Sidebar
             'page' => 'dashboard',
 
             // Employees
-            'task_completed' => $this
-                ->jobModel
-                ->where("is_completed", 1)
-                ->where('DATE(created_at)', $todayPlusOne)
-                ->countAllResults(),
-
+            'task_completed' => $this->reportModel->getSum(),
+            // 'task_completed' => $this
+            //     ->reportModel
+            //     ->where('DATE(created_at)', $today)
+            //     ->getSum(),
+            
             'total_employees' => $this
                 ->userModel
                 ->countAllResults(),
@@ -47,19 +49,18 @@ class HomeController extends BaseController
             'employee_presence' => $this
                 ->attedanceModel
                 ->where("category", "hadir")
-                ->where('DATE(created_at)', $todayPlusOne)
+                ->where('DATE(created_at)', $today)
                 ->countAllResults(),
 
             'employee_sick' => $this
                 ->attedanceModel
                 ->where("category", "sakit")
-                ->where('DATE(created_at)', $todayPlusOne)
+                ->where('DATE(created_at)', $today)
                 ->countAllResults(),
 
             'employee_leave' => $this
                 ->attedanceModel
-                ->where("category", "cuti")
-                ->where('DATE(created_at)', $todayPlusOne)
+                ->where('DATE(signout_at)', $today)
                 ->countAllResults(),
         ];
 
