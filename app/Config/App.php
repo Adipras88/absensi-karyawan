@@ -23,8 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'https://absensikaryawan.web.id/';
-    
+    public $baseURL = 'http://localhost:8081/';
 
     /**
      * --------------------------------------------------------------------------
