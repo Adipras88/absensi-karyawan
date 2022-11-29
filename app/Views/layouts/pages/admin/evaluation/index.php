@@ -47,7 +47,7 @@
                                 <td><?= date_format(date_create($p['registration_at']), 'd M Y H:i') ?></td>
                                 <td><?= date_format(date_create($p['evaluation_created']), 'd M Y H:i') ?></td>
                                 <td>
-<!--                                    <a class="btn btn-info btn-sm" href="--><?php //echo base_url(); ?><!--/admin/evaluation/edit/--><?//= $p['evaluationId'] ?><!--"><i class="bi bi-pencil-square"></i></a>-->
+                                    <a class="btn btn-info btn-sm" href="<?php echo base_url(); ?>/admin/evaluation/edit/<?= $p['evaluationId'] ?>"><i class="bi bi-pencil-square"></i></a>
                                     <a class="btn btn-warning btn-sm" href="<?= base_url(); ?>/admin/evaluation/detail/<?= $p['evaluationId'] ?>"><i class="bi bi-eye-fill"></i></a>
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal<?= $p['evaluationId'] ?>"><i class="bi bi-trash-fill"></i></button>
                                 </td>

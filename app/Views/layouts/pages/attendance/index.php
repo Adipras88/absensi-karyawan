@@ -87,11 +87,7 @@
                                 <!--END SIGN OUT-->
 
                                 <!--START LATE TIME-->
-<<<<<<< Updated upstream
-                                <?php if ($late === true && $e['category'] === 'hadir') : ?>
-=======
                                 <?php if ($e['late_status'] === true && $e['category'] === 'hadir') : ?>
->>>>>>> Stashed changes
                                     <td><?= date_format(date_create($e['signin_at']), 'H:i') ?></td>
                                 <?php else : ?>
                                     <td>-</td>
@@ -99,15 +95,9 @@
                                 <!--END LATE TIME-->
 
                                 <!--START STATUS ATTENDANCE-->
-<<<<<<< Updated upstream
-                                <?php if ($late === true && $e['category'] === 'hadir') : ?>
-                                    <td><span class="badge rounded-pill bg-danger">Late</span></td>
-                                <?php elseif ($late === false && $e['category'] === 'hadir') : ?>
-=======
                                 <?php if ($e['late_status'] === true && $e['category'] === 'hadir') : ?>
                                     <td><span class="badge rounded-pill bg-danger">Late</span></td>
                                 <?php elseif ($e['late_status'] === false && $e['category'] === 'hadir') : ?>
->>>>>>> Stashed changes
                                     <td><span class="badge rounded-pill bg-success">On Time</span></td>
                                 <?php elseif ($e['category'] !== 'hadir' && $e['status'] === 'PENDING') : ?>
                                     <td><span class="badge rounded-pill bg-warning">Pending</span></td>

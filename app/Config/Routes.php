@@ -38,6 +38,9 @@ $routes->get('/register', 'SigninController::register');
 $routes->post('/register/submit', 'SigninController::registerSubmit');
 $routes->get('/qr/create', 'QRServiceController::create');
 
+// $routes->get('absensiservices/getEmployeeById', 'AbsensiServices::getEmployeeById');
+// $routes->resource('absensiservices');
+
 $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     /** EMPLOYEE **/
     $routes->get('dashboard', 'HomeController::index');
@@ -48,6 +51,7 @@ $routes->group('admin', ['filter' => 'authGuard'], function ($routes) {
     $routes->post('employee/update/(:num)', 'EmployeeController::update/$1');
     $routes->get('employee/detail/(:num)', 'EmployeeController::detail/$1');
     $routes->delete('employee/delete/(:num)', 'EmployeeController::delete/$1');
+    $routes->post('employee/getEmployeeById', 'EmployeeController::getEmployeeById');
 
     /** JOBS **/
     $routes->get('job', 'JobController::index');

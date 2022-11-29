@@ -52,11 +52,7 @@
                     </div>
                 </a>
             <?php else : ?>
-<<<<<<< Updated upstream
-                <a class="card card-menu stretched-link text-decoration-none" onclick="isLoggedIn()">
-=======
                 <a class="card card-menu stretched-link text-decoration-none" onclick="notYet()">
->>>>>>> Stashed changes
                     <div class="card-body text-center">
                         <div class="column justify-content-center">
                             <i class="bi bi-box-arrow-left mt-1 mr-3" style="font-size: 32px; color: #6610f2"></i>
@@ -104,11 +100,7 @@
         setInterval(dateTime, 100);
     });
 
-<<<<<<< Updated upstream
-    function isLoggedIn() {
-=======
     function notYet() {
->>>>>>> Stashed changes
         Swal.fire({
             icon: 'info',
             title: 'FYI!',
@@ -119,8 +111,6 @@
         })
     }
 
-<<<<<<< Updated upstream
-=======
     function isLogged() {
         Swal.fire({
             icon: 'info',
@@ -132,7 +122,6 @@
         })
     }
 
->>>>>>> Stashed changes
     $(".alert").fadeTo(2000, 500).slideUp(500, function() {
         $(".alert").slideUp(500);
     });

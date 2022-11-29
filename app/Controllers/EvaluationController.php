@@ -42,7 +42,7 @@ class EvaluationController extends BaseController
 
     public function create()
     {
-        $dataUser = $this->userModel->findAll();
+        $dataUser = $this->userModel->where(['level' => 'employee'])->findAll(); // dropdown only employee
         $dataJob = $this->jobModel->findAll();
         $data = [
             'page' => 'evaluation',
@@ -65,6 +65,15 @@ class EvaluationController extends BaseController
             'perilaku' => 'required',
             'value_job_type' => 'required',
         ];
+
+        // Check duplicate data
+        $userId = $this->request->getVar('user_id');
+        $getDataUser = $this->userModel->where(['userId' => $userId])->first();
+        $getDataEval = $this->evaluationModel->where(['user_id' => $userId])->first();
+        if ($getDataEval != null) {
+            session()->setFlashdata('failed_evaluation', $getDataUser['fullname'] . ' has been evaluated. please choose another employee.');
+            return redirect()->to('/admin/evaluation/create');
+        }
 
         if ($this->validate($rules)) {
             $data = [
@@ -109,33 +118,23 @@ class EvaluationController extends BaseController
 
     public function edit($id)
     {
-        $dataEvaluation = $this->evaluationModel->where(['evaluationId' => $id])->first();
+        $dataPerformance = $this->evaluationModel
+            ->where(['evaluationId' => $id])
+            ->join('users', 'users.userId = evaluations.user_id')
+            ->first();
         $dataEvaluationJob = $this->evaluationJobResultsModel
             ->where(['evaluation_id' => $id])
             ->join('jobs', 'jobs.jobId = evaluation_job_results.job_id')
             ->get()
             ->getResultArray();
-
         $dataUser = $this->userModel->findAll();
         $dataJob = $this->jobModel->findAll();
-
-        $numItems = count($dataEvaluationJob);
-        $i = 0;
-        $lastIndex = 0;
-        foreach ($dataEvaluationJob as $key => $value) {
-            if (++$i === $numItems) {
-                $lastIndex = $key;
-            }
-        }
-
         $data = [
             'page' => 'evaluation',
-            'evaluation' => $dataEvaluation,
+            'evaluation' => $dataPerformance,
             'user' => $dataUser,
             'job' => $dataJob,
             'job_result' => $dataEvaluationJob,
-            'last_index' => $lastIndex,
-            'validation' => Services::validation(),
         ];
 
         echo view('layouts/pages/admin/evaluation/edit', $data);
@@ -146,7 +145,6 @@ class EvaluationController extends BaseController
         $current = $this->evaluationModel->where(['evaluationId' => $id])->first();
 
         $rules = [
-            'user_id' => 'required',
             'disiplin' => 'required',
             'loyalitas' => 'required',
             'kerjasama' => 'required',
@@ -156,7 +154,7 @@ class EvaluationController extends BaseController
         if ($this->validate($rules)) {
             $data = [
                 'evaluationId' => $id,
-                'user_id' => $this->request->getVar('user_id'),
+                'user_id' => $this->request->getVar('userId'),
                 'disiplin' => $this->request->getVar('disiplin'),
                 'loyalitas' => $this->request->getVar('loyalitas'),
                 'kerjasama' => $this->request->getVar('kerjasama'),
@@ -173,22 +171,21 @@ class EvaluationController extends BaseController
             ];
             $this->evaluationModel->replace($data);
 
-            $currentJobResult = $this->evaluationJobResultsModel->where(['evaluation_id' => $id])->get()->getResultArray();
+            $currentJobResult = $this->evaluationJobResultsModel
+                ->where(['evaluation_id' => $id])
+                ->findAll();
 
             $dataArray = array();
             foreach ($currentJobResult as $key => $val) {
                 $dataArray[] = array(
-                    'jobResultsId' => $currentJobResult[$key]['jobResultsId'],
+                    'jobResultsId' => $val['jobResultsId'],
                     'evaluation_id' => $id,
-                    'job_id' => $_POST['job_id'][$key],
+                    'job_id' => $val['job_id'],
                     'job_score' => $_POST['value_job_type'][$key],
-                    'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 );
             }
-            array_pop($dataArray);
-//            dd($dataArray);
-            $this->evaluationJobResultsModel->updateBatch($dataArray);
+            $this->evaluationJobResultsModel->updateBatch($dataArray, 'jobResultsId');
 
             session()->setFlashdata('success_evaluation', 'Update Performance Employee successfully.');
             return redirect()->to("/admin/evaluation");
